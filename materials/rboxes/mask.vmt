@@ -1,0 +1,24 @@
+screenspace_general
+{
+	$pixshader "rboxes_mask_ps20"
+
+	$basetexture ""
+	$texture1    ""
+	$texture2    ""
+	$texture3    ""
+
+	$x360appchooser 1
+	"<dx90"
+	{
+		$no_draw 1
+	}
+		
+	$copyalpha                 0
+	$alpha_blend_color_overlay 0
+	$alpha_blend               0
+	$linearwrite               1
+	$linearread_basetexture    0
+	$linearread_texture1       0 // Чтоб буффер глубины не ебало
+	$linearread_texture2       0
+	$linearread_texture3       0
+}
