@@ -1,27 +1,10 @@
 local rBoxes = {}
 
-local smooth = 2 -- Smoothes out rounded boxes. The higher the number - the higher the smoothing rate.
-
 do
 	local mat = Material('rboxes/simple')
 	local mat2 = Material('rboxes/mask')
 
 	local setFloat = mat.SetFloat
-
-	setFloat(mat, '$c0_x', ScrW() / smooth)
-	setFloat(mat, '$c0_y', ScrH() / smooth)
-
-	setFloat(mat2, '$c0_x', ScrW() / smooth)
-	setFloat(mat2, '$c0_y', ScrH() / smooth)
-
-	hook.Add('OnScreenSizeChanged', 'rboxes.screenSizeChanged' .. SysTime(), function(_, _, newW, newH)
-		setFloat(mat, '$c0_x', newW / smooth)
-		setFloat(mat, '$c0_y', newH / smooth)
-
-		setFloat(mat2, '$c0_x', newW / smooth)
-		setFloat(mat2, '$c0_y', newH / smooth)
-	end)
-
 	local setDrawColor = surface.SetDrawColor
 	local setMaterial = surface.SetMaterial
 	local drawTexturedRectUV = surface.DrawTexturedRectUV
@@ -33,6 +16,8 @@ do
   ---@param h integer
   ---@param color Color
 	function rBoxes.drawRoundedBox(radius, x, y, w, h, color)
+		setFloat(mat, '$c0_x', w)
+		setFloat(mat, '$c0_y', h)
 		setFloat(mat, '$c0_z', radius / w * 2)
 		setFloat(mat, '$c0_w', radius / h * 2)
 
@@ -52,6 +37,8 @@ do
   ---@param color Color
   ---@param texture ITexture
 	function rBoxes.drawRoundedBoxTextured(radius, x, y, w, h, color, texture)
+		setFloat(mat2, '$c0_x', w)
+		setFloat(mat2, '$c0_y', h)
 		setFloat(mat2, '$c0_z', radius / w)
 		setFloat(mat2, '$c0_w', radius / h)
 		setTexture(mat2, '$basetexture', texture)
